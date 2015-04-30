@@ -1,0 +1,35 @@
+{
+  "name": "es6-overview",
+  "version": "1.0.0",
+  "description": "An overview of ES6 features",
+  "author": {
+    "name": "Bertrand Chevrier",
+    "email": "chevrier.bertrand@gmail.com",
+    "url": "https://github.com/krampstudio/"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/krampstudio/es6-overview",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krampstudio/es6-overview.git"
+  },
+  "bugs": {
+    "url": "https://github.com/krampstudio/es6-overview/issues"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "browserify public/js/app.js -t babelify --debug | exorcist -b . public/js/app.bundle.js.map > public/js/app.bundle.js",
+    "dev": "watchify public/js/app.js -t babelify --debug | exorcist -b . public/js/app.bundle.js.map > public/js/app.bundle.js"
+  },
+  "keywords": [
+    "es6",
+    "esnext",
+    "es2015"
+  ],
+  "devDependencies": {
+    "babelify": "^6.0.2",
+    "browserify": "^9.0.8",
+    "exorcist": "^0.3.0",
+    "watchify": "^3.2.0"
+  }
+}

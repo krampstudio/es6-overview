@@ -1,0 +1,2 @@
+require('./samples/hello.js');
+
