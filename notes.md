@@ -510,9 +510,38 @@ tattoos.set(tattoo, "page 10");
 tattoos.get(tattoo) === "page 10";
 ```
 
-#### Iterable and for-of
+#### for of
 
-**!!!TODO!!!**
+```javascript
+var tattoos = ['dragon', 'flower', 'pin-up', 'anchor', 'heart', 'tribal'];
+for (var tattoo of tattoos){
+	console.log(tattoos);
+}
+```
+
+#### Iterator
+
+```javascript
+var randomTattoos = {
+	[Symbol.iterator]() {
+		var tattoos = ['dragon', 'flower', 'pin-up', 'anchor', 'heart', 'tribal'];
+		var time = 0;
+		return {
+			next : function(){
+				time++;
+				return { 
+					done : time > 3, 
+					value : tattoos[Math.floor(Math.random() * tattoos.length)]
+				}
+			}
+		}    	
+	}
+}
+
+for (var tattoos of randomTattoos){
+	console.log(tattoos);
+}
+```
 
 ### Class
 
@@ -561,11 +590,6 @@ PinupTattoo.representHuman === true;
 ### Types and core API
 
 - symbols
-
-### Symbols
-
-
-
 - math + number + string + array + object APIs
 - binary and octal literals
 - unicode
