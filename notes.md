@@ -319,24 +319,40 @@ drawing[1] === 'Drawing a blue tattoo on the leg';
 
 #### Proxies
 
-**!!! todo !!!**
-
 ```javascript
-var handler = {
+var machine  = {};
+var pMachine = new Proxy(machine, {
 	get : function(target, property){
-		//trap
+		console.log('Machine ' + property + ' : ' + value);
 		return target[property];
 	},
 	set : function(target, property, value){
+		console.log('Machine has a new ' + property + ' : ' + value);
 		target[property] = value;
 	}
-};
-var target  = {};
-var p = new Proxy(target, handler);
-p.foo = 'bar';
-p.foo;
+});
+
+pMachine.color = 'red';
+pMachine.color;
+pMachine.speed = 10;
 ```
-**!!! todo !!!**
+
+#### Proxy traps
+
+ - `getPrototypeOf (target)`
+ - `setPrototypeOf (target, prototype)`
+ - `isExtensible (target)`
+ - `preventExtensions (target)`
+ - `getOwnPropertyDescriptor (target, property)`
+ - `defineProperty (target, property, descriptor)`
+ - `has (target, prop)` 
+ - `get (target, property, receiver)`
+ - `set (target, property, value, receiver)`
+ - `deleteProperty (target, property)`
+ - `enumerate (target)`
+ - `ownKeys (target)`
+ - `apply (target, thisArg, argumentsList)`
+ - `construct (target, argumentsList)`
 
 ### Async
 
@@ -345,21 +361,211 @@ p.foo;
 
 #### Promises
 
+```javascript
+function startMachine(){
+	return  new Promise(function(resolved, reject){
+		var ts = setTimeout(function(){
+			reject(new Error("Machine hasn't started correctly"));
+		}, 1000);
+
+		console.log('starting');
+
+		clearInterval(ts);
+		resolved();
+	});
+}
+
+startMachine()
+  .then(function(){
+	console.log('done');
+  })
+  .catch(function(err){
+      console.error(err);
+  });
+```
+
 #### Generators
+
+#### Generators yielding
+
+```javascript
+var state = {
+  points  : 0,
+  down : false
+};
+function* inkPoint(){
+	while(true){
+		state.down = !state.down;
+		if(state.down){
+			state.points++;
+		}
+		yield state;
+	}
+}
+
+var next = inkPoint().next();
+next.value.points === 1;
+next.value.down === true;
+
+next = inkPoint().next();
+next.value.points === 1;
+next.value.down === false;
+
+next = inkPoint().next();
+next.value.points === 2;
+next.value.down === true;
+```
+
+#### Generators done
+
+```javascript
+var points  = 0;
+function* inkPoint(){
+	while(points < 2){
+		points++;
+		yield points;
+	}
+	return points;
+}
+
+var next = inkPoint().next();
+next.value === 1;
+next.done === false;
+
+next = inkPoint().next();
+next.value === 2;
+next.done === false;
+
+next = inkPoint().next();
+next.value === 2;
+next.done === true;
+```
+
+#### Generators iterable
+
+```javascript
+var points  = 0;
+function* inkPoint(){
+	while(points < 2){
+		points++;
+		yield points;
+	}
+	return points;
+}
+
+for (var  p of inkPoint(){
+	console.log(p);
+}
+```
 
 ### Collections
 
 - map + set + weakmap + weakset
 - iterators + for..of
 
+#### Sets
+
+```javascript
+var tattoos = new Set();
+tattoos.add('pin-up')
+	     .add('dragon')
+	     .add('pin-up');
+
+tattoos.size === 2;
+tattoos.has('pin-up') === true;
+```
+
+#### Sets
+
+```javascript
+var tattoos = new Set();
+tattoos.add('pin-up')
+	     .add('dragon')
+	     .add('pin-up');
+
+tattoos.size === 2;
+tattoos.has('pin-up') === true;
+```
+
+#### Map
+
+```javascript
+var machine = new Map();
+machine.set("speed", 10);
+machine.get("speed") === 10;
+
+machine.set("ink", "purple");
+machine.get("ink") === "purple";
+```
+
+#### Weak Set/Map
+
+```javascript
+var tattoo = { 
+	color : 'green',
+	size   : 'small'
+};
+var book = new WeakMap();
+tattoos.set(tattoo, "page 10");
+tattoos.get(tattoo) === "page 10";
+```
+
+#### Iterable and for-of
+
+**!!!TODO!!!**
+
 ### Class
 
 - classes
 - subclassable built-ins
 
+### Classes
+
+```javascript
+class Tattoo {
+	constructor(size, color){
+		this.size = size;
+		this.color = color;
+	}
+
+	toString(){
+		return 'Drawing a ' + this.size + ', ' + this.color + ' tattoo'; 
+	}
+}
+var t = new Tattoo('small', 'black');
+t.toString() === 'Drawing a small, black tattoo'; 
+```
+
+### SubClasses
+
+```javascript
+class DragonTattoo extends Tattoo {
+	toString(){
+		return super() + ' of a dragon';
+	}
+}
+var t = new DragonTattoo('small', 'black');
+t.toString() === 'Drawing a small, black tattoo of a dragon'; 
+```
+
+### Static methods
+```javascript
+class PinupTattoo extends Tattoo {
+	static representHuman() {
+		return true;
+	}
+}
+PinupTattoo.representHuman === true; 
+```
+
 ### Types and core API
 
 - symbols
+
+### Symbols
+
+
+
 - math + number + string + array + object APIs
 - binary and octal literals
 - unicode
@@ -380,5 +586,6 @@ p.foo;
  - for [k,v] of Map
  - for k of Object.keys(array)
  - arrow fn in forEach, map/reduce
- - generators ???
+ - generators  ‘await’-like async programming, see also ES7 await proposal.
  - spread to replace arguments (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator)  
+ - proxies meta programming : transversal layer (validation, logger, profilers), AOP, DI, etc.
