@@ -1,2 +1,2 @@
-require('./samples/hello.js');
+require('./samples/object-literals.js');
 
