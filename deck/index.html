@@ -1,38 +1,34 @@
-# Notes
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JS Write once run everywhere</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link type="text/css" rel="stylesheet" href="style/style.css" />
+  </head>
+  <body>
+    <textarea id="source">
 
-## Resources
+class: center, middle
 
- - [features](https://github.com/lukehoban/es6features)
- - [Scope](http://www.2ality.com/2015/02/es6-scoping.html)
- - [Classes](http://www.2ality.com/2015/02/es6-classes-final.html)
- - [Pattern and linting](https://medium.com/javascript-scene/how-to-use-es6-for-isomorphic-javascript-apps-2a9c3abe5ea2)
- - [compat table](http://kangax.github.io/compat-table/es6/)
- - [iterators](https://hacks.mozilla.org/2015/04/es6-in-depth-iterators-and-the-for-of-loop/)
- - [generator async](http://davidwalsh.name/async-generators)
- - [Terms](http://www.2ality.com/2011/06/ecmascript.html)
+# ECMAScript-262, 6th Edition
 
-## Plan
+---
 
- 1. Past, Present, Future
-    1. ES History
-    2. ES6 Standard
-    3. ES2015
- 2. Overview
- 3. Implementation
-    1. Runtimes, compilers
-    2. Babel
-    3. Browserify
- 4. Patterns
- 5. Pro and con
+class: center, middle
 
 ## Past, Present and Future
 
+---
+
 ### What's what
 
-- ECMAScript : "Java" is a trademark of Sun so "JavaScript" is also (why microsoft named it JScript, etc.). The name of the language and the standard. Hosted by ECMA international
-- ECMA-262 : the standard
-- ES 5 : 5th edition of ECMA-262
-- TC39 : The Technical Committee that maintain the standard
+- **ECMAScript** : "Java" is a trademark of Sun so "JavaScript" is also (why microsoft named it JScript, etc.). The name of the language and the standard. Hosted by ECMA international
+- **ECMA-262** : the standard
+- **ES 5** : 5th edition of ECMA-262
+- **TC39** : The Technical Committee that maintain the standard
+- **JavaScript** : An implementation of the standard
+
+---
 
 ###  How all began
 
@@ -41,21 +37,30 @@
  - 1996 : Netscape submit JavaScript to ECMA for standardization
  - 1997 : ECMA-262 1st Edition
  - 1998 : ECMA-262 2nd Edition
- - 1999 : **ECMA-262 3rd Edition **  This is the version we all know.
+ - 1999 : **ECMA-262 3rd Edition**  This is the version we all know.
+
+---
 
 ### The dark years
 
- - 1999 - 2008 : JavaScript is a toy. T39 start an amibitius new version : static typing, classes, generators, annotations, generics, etc. But they even never been agreed what features to include.
+**1999 - 2008**
 
+ - JavaScript is a toy.
+ - TC39 starts an amibitius new version : static typing, classes, generators, annotations, generics, etc.
+ - But they even never been agreed what features to include.
+
+---
 
 ### The resurection
 
  - ~2005 web2.0 is rising
  - 2008 : v8
- -  2008 : TC39 finally abandonned ES4. Agreement on starting 2 projects :   ES5 as a lighter version and Harmony for the future of the language.
+ - 2008 : TC39 finally abandonned ES4. Agreement on starting 2 projects :   ES5 as a lighter version and Harmony for the future of the language.
  - 2009 : ECMAScript 5th Edition
  - 2009 : 1st version of node.js
- - 2011 : ECMAScript 5.1th Edition (The current implementation)
+ - 2011 : **ECMAScript 5.1th Edition** (The current implementation)
+
+---
 
 ### And now
 
@@ -64,13 +69,25 @@
  - Some Harmony features have been moved to ES7
  - Now called ES 2015 (really?)
 
+---
+
+class: center, middle
+
 ## Implementation
 
-### How to do ES6 today
+---
 
-#### Where to look at
+class: center, middle
+
+### How to do ES6 today ??
+
+---
+
+#### First look at
 
 [Kangax' ES6 Compatibility Table](http://kangax.github.io/compat-table/es6/)
+
+---
 
 #### Native implementations (partial)
 
@@ -80,12 +97,16 @@
  4. Chrome 44
  5. node.js --harmony
 
-#### Transpileurs
+---
+
+#### Transpileurs  (better)
 
  1. Babel
  2. Traceur
  3. TypeScript
  4. JSX (React)
+
+---
 
 ### My stack
 
@@ -93,7 +114,13 @@
  - [Babel](https://babeljs.io)
  - [Browserify](http://browserify.org)
 
+---
+
+class: center, middle
+
 ## Features Overview
+
+---
 
 ### Backward compatible
 
@@ -101,19 +128,24 @@
 
  - strict mode (change langage semantic but enable backward compat)
  - API Enhancement :
- -- `Object.create`, `Object.keys`,  `Object.defineProperty`, etc.
- -- `Array.indexOf`, `Array.forEach`, `Array.map`, `Array.reduce`, `Array.filter`, `Array.some`, etc.
- -- `Date.now`, `Date.toISOString`
- -- `Function.bind`
- -- `String.trim`
- -- `JSON`
+  - `Object.create`, `Object.keys`,  `Object.defineProperty`, etc.
+  - `Array.indexOf`, `Array.forEach`, `Array.map`, `Array.reduce`, `Array.filter`, `Array.some`, etc.
+  - `Date.now`, `Date.toISOString`
+  - `Function.bind`
+  - `String.trim`
+  - `JSON`
  - Getter/Setter
  - Property access on string and on object using reserved keyword
 
 [Kangax' ES5 Compatibility Table](http://kangax.github.io/compat-table/es5/)
 
+---
+
+class: center, middle
 
 ### Object Literrals
+
+---
 
 #### Methods
 
@@ -130,6 +162,8 @@ var tatoo = {
 tatoo.ink() === 'red';
 ```
 
+---
+
 #### Properties
 
 ```javascript
@@ -141,6 +175,8 @@ var tatoo = {
 };
 
 tatoo.color === 'red';```
+
+---
 
 #### expressions for property name
 
@@ -160,7 +196,13 @@ tatoo.isSMALL() === true;
 ```
 
 
+---
+
+class: center, middle
+
 ### Destructuring
+
+---
 
 #### Destructuring Array
 
@@ -172,6 +214,8 @@ size === 'small';
 color === 'red';
 price === '$80';
 ```
+
+---
 
 #### Destructuring Objects
 
@@ -189,6 +233,8 @@ color === 'red';
 price === '$80';
 ```
 
+---
+
 #### Soft failing
 
 ```javascript
@@ -197,8 +243,13 @@ var [size] = [];
 size === undefined;
 ```
 
+---
+
+class: center, middle
 
 ###  Function parameters
+
+---
 
 #### Default value
 
@@ -211,6 +262,8 @@ countTattoo(['arms', 'neck']) === 2;
 countTattoo() === 0;
 ```
 
+---
+
 #### Rest parameter
 
 ```javascript
@@ -221,6 +274,8 @@ function countTattoo(...tattoos) {
 countTattoo('arms', 'neck') === 2;
 countTattoo() === 0;
 ```
+
+---
 
 #### Spread
 
@@ -233,31 +288,42 @@ var tattoos = ['small', 'green', 'back'];
 drawTattoo(...tattoos) === 'Drawing a small, green tattoo on the back';
 ```
 
+---
+
+class: center, middle
 
 ### Template Strings
 
+---
+
 #### Substitution
 
-```javascript
+<pre>
 var tattoo = 'pin-up';
 var desc   = `My mother has a ${tatoo} tattooed on her arm`;
-```
+</pre>
+
+---
 
 #### Multiline
 
 ```javascript
 var tattoo = 'pin-up';
-var desc   = `<div>
-    <span>My mother has a <strong>${tatoo}</strong> tattooed on her arm</span>
-</div>`;
+var desc   = `&lt;div&gt;
+    &lt;span&gt;My mother has a &lt;strong&gt;${tatoo}&lt;/strong&gt; tattooed on her arm&lt;/span&gt;
+&lt;/div&gt;`;
 ```
+
+---
 
 #### Expressions
 
-```javascript
+<pre>
 var tattoos = ['pin-up', 'anchor', 'dragon'];
 var desc   = `My mother has a ${tatoos.length} tattoos`;
-```
+</pre>
+
+---
 
 #### Tagged templates
 
@@ -271,12 +337,19 @@ function tattoo(tpl, ...values){
 var size = 'SMALL';
 var motif = 'flower';
 var color = 'red';
-
+```
+<pre>
 var res = tattoo`A ${size.toLowerCase()}, ${color} ${motif} tattoo`;
 res === "A small, red flower tattoo";
-```
+</pre>
+
+---
+
+class: center, middle
 
 ### Variable declaration
+
+---
 
 #### let
 
@@ -287,6 +360,8 @@ if (true){
 }
 typeof size === 'undefined';
 ```
+
+---
 
 #### const
 
@@ -300,30 +375,40 @@ if (true){
 typeof size === 'undefined';
 ```
 
-#### Arrow functions
+---
 
-#### => expression as body
+class: center, middle
+
+### Arrow functions
+
+---
+
+#### expression as body
 
 ```javascript
-var tattoos =  ['pin-up', 'anchor', 'dragon'].map( t => t[0].toUpperCase() + t.substring(1).toLowerCase());
+var tattoos =  ['pin-up', 'anchor', 'dragon'].map( t =&gt; t[0].toUpperCase() + t.substring(1).toLowerCase());
 ```
 
-#### => block as body
+---
+
+#### block as body
 
 ```javascript
-var tattoos =  ['pin-up', 'anchor', 'dragon'].map( t => {
+var tattoos =  ['pin-up', 'anchor', 'dragon'].map( t =&gt; {
 	return t[0].toUpperCase() + t.substring(1).toLowerCase()
 });
 ```
 
-#### => scope
+---
+
+#### scope
 
 ```javascript
 var tattoo = {
 	color  : 'blue',
 	draw  : function (locations){
 		var result = [];
-		locations.forEach( (l, i) => {
+		locations.forEach( (l, i) =&gt; {
 			result[i] = 'Drawing a ' + this.color + ' tattoo on the ' + l;
 		});
 		return result;
@@ -335,8 +420,13 @@ drawing[0] === 'Drawing a blue tattoo on the arm';
 drawing[1] === 'Drawing a blue tattoo on the leg';
 ```
 
+---
+
+class: center, middle
 
 ### Collections
+
+---
 
 #### Sets
 
@@ -350,6 +440,8 @@ tattoos.size === 2;
 tattoos.has('pin-up') === true;
 ```
 
+---
+
 #### Maps
 
 ```javascript
@@ -360,6 +452,8 @@ machine.get("speed") === 10;
 machine.set("ink", "purple");
 machine.get("ink") === "purple";
 ```
+
+---
 
 #### Weak Sets/Maps
 
@@ -373,6 +467,8 @@ tattoos.set(tattoo, "page 10");
 tattoos.get(tattoo) === "page 10";
 ```
 
+---
+
 #### for - of
 
 ```javascript
@@ -381,6 +477,8 @@ for (var tattoo of tattoos){
 	console.log(tattoos);
 }
 ```
+
+---
 
 #### Iterator
 
@@ -393,7 +491,7 @@ var randomTattoos = {
 			next : function(){
 				time++;
 				return {
-					done : time > 3,
+					done : time &gt; 3,
 					value : tattoos[Math.floor(Math.random() * tattoos.length)]
 				}
 			}
@@ -405,11 +503,15 @@ for (var tattoos of randomTattoos){
 	console.log(tattoos);
 }
 ```
+---
 
-
-
+class: center, middle
 
 ### Promises
+
+---
+
+#### Promise
 
 ```javascript
 function startMachine(){
@@ -435,7 +537,13 @@ startMachine()
 ```
 
 
+---
+
+class: center, middle
+
 ### Generators
+
+---
 
 #### Generators yielding
 
@@ -467,12 +575,14 @@ next.value.points === 2;
 next.value.down === true;
 ```
 
+---
+
 #### Generators done
 
 ```javascript
 var points  = 0;
 function* inkPoint(){
-	while(points < 2){
+	while(points &lt; 2){
 		points++;
 		yield points;
 	}
@@ -492,12 +602,14 @@ next.value === 2;
 next.done === true;
 ```
 
+---
+
 #### Generators iterable
 
 ```javascript
 var points  = 0;
 function* inkPoint(){
-	while(points < 2){
+	while(points &lt; 2){
 		points++;
 		yield points;
 	}
@@ -509,7 +621,13 @@ for (var  p of inkPoint(){
 }
 ```
 
+---
+
+class: center, middle
+
 ### Meta Programming
+
+---
 
 #### Proxies
 
@@ -531,6 +649,8 @@ pMachine.color;
 pMachine.speed = 10;
 ```
 
+---
+
 #### Proxy traps
 
  - `getPrototypeOf (target)`
@@ -548,6 +668,8 @@ pMachine.speed = 10;
  - `apply (target, receiver, args)`
  - `construct (target, args)`
 
+---
+
 #### Reflect
 
 ```javascript
@@ -556,6 +678,8 @@ Reflect.set(machine, 'color', 'red');
 Reflect.has(machine, 'color') === true;
 Reflect.get(machine, 'color') === 'red';
 ```
+
+---
 
 #### Reflect traps
 
@@ -574,6 +698,8 @@ Reflect.get(machine, 'color') === 'red';
  - `Reflect.isExtensible (target)`
  - `Reflect.ownKeys (target)`
 
+---
+
 #### Symbol
 
 ```javascript
@@ -586,6 +712,8 @@ var tattoo = {
 JSON.stringify(tattoo) === '{"color":"red"}';
 ```
 
+---
+
 #### Well known Symbols
 
  - `Symbol.iterator`
@@ -593,7 +721,13 @@ JSON.stringify(tattoo) === '{"color":"red"}';
  - `Symbol.toPrimitive`
  - [exhautive lists of Symbols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol#Well-known_symbols)
 
+---
+
+class: center, middle
+
 ### Class
+
+---
 
 ### Classes
 
@@ -612,6 +746,8 @@ var t = new Tattoo('small', 'black');
 t.toString() === 'Drawing a small, black tattoo';
 ```
 
+---
+
 ### SubClasses
 
 ```javascript
@@ -624,6 +760,8 @@ var t = new DragonTattoo('small', 'black');
 t.toString() === 'Drawing a small, black tattoo of a dragon';
 ```
 
+---
+
 ### Static methods
 ```javascript
 class PinupTattoo extends Tattoo {
@@ -634,7 +772,13 @@ class PinupTattoo extends Tattoo {
 PinupTattoo.representHuman === true;
 ```
 
+---
+
+class: center, middle
+
 ### API
+
+---
 
 #### Number
 
@@ -644,6 +788,8 @@ Number.isInteger(Infinity)  === false;
 Number.isNaN("NaN") === false;
 ```
 
+---
+
 #### Math
 
 ```javascript
@@ -652,6 +798,8 @@ Math.hypot(3, 4) === 5;
 Math.imul(Math.pow(2, 32) - 1, Math.pow(2, 32) - 2)  === 2;
 ```
 
+---
+
 #### Strings
 
 ```javascript
@@ -659,12 +807,16 @@ Math.imul(Math.pow(2, 32) - 1, Math.pow(2, 32) - 2)  === 2;
 "up-down-".repeat(2) === "up-down-up-down-";
 ```
 
+---
+
 #### Binary and Octal
 
 ```javascript
 0b111110111 === 503;
 0o767 === 503;
 ```
+
+---
 
 #### Object
 
@@ -681,21 +833,29 @@ tattoo.color === 'red';
 tattoo.motif === 'pin-up';
 ```
 
+---
+
 ### Array
 
 ```javascript
 Array.from(document.querySelectorAll('*')) // Returns a real Array
 Array.of(1, 2, 3) // Similar to new Array(...), but without special one-arg behavior
 [0, 0, 0].fill(7, 1) // [0,7,7]
-[1, 2, 3].find(x => x == 3) // 3
-[1, 2, 3].findIndex(x => x == 2) // 1
+[1, 2, 3].find(x =&gt; x == 3) // 3
+[1, 2, 3].findIndex(x =&gt; x == 2) // 1
 [1, 2, 3, 4, 5].copyWithin(3, 0) // [1, 2, 3, 1, 2]
 ["a", "b", "c"].entries() // iterator [0, "a"], [1,"b"], [2,"c"]
 ["a", "b", "c"].keys() // iterator 0, 1, 2
 ["a", "b", "c"].values() // iterator "a", "b", "c"
 ```
 
+---
+
+class: center, middle
+
 ### Modules
+
+---
 
 #### Import and Export
 
@@ -723,6 +883,8 @@ start() === 'starting';
 stop() === 'stoping';
 ```
 
+---
+
 #### Default
 
 ```javascript
@@ -744,6 +906,8 @@ machine.start() === 'starting';
 machine.stop() === 'stoping';
 ```
 
+---
+
 #### Module loaders
 
 ```javascript
@@ -763,24 +927,68 @@ System.get('jquery');
 System.set('jquery', Module({$: $})); // WARNING: not yet finalized
 ```
 
+---
+
 ### Tail calls
 
 ```javascript
 function factorial(n, acc = 1) {
     'use strict';
-    if (n <= 1) return acc;
+    if (n &lt;= 1) return acc;
     return factorial(n - 1, n * acc);
 }
 
 factorial(100000);
 ```
 
+---
+
 ## New Patterns
 
+### Default values
+
+```javascript
+function tattoo({ size = 'small', color = 'black'} = {}) {
+
+  return `${size}, ${color}`;
+}
+console.log( tattoo({ size: 'medium'}) );
+```
+
+### for-of
+
+```
+var map = new Map();
+map.set('color', 'red');
+//...
+
+for( let [key, value] of map){
+    console.log(key);
+    console.log(value);
+}
+```
+
+### Many more
+
  - spread to replace `arguments`, spread instead of [].slice
- - default parameter (see isomorphic es6)
- - for [k,v] of Map
- - for k of Object.keys(array)
- - => in forEach, map/reduce
+ - =&gt; in functionnal programming
  - generators  ‘await’-like async programming, see also ES7 await proposal.
- - proxies meta programming : validation, logger, profilers, AOP, DI, etc.
+ - proxies/reflect meta programming : validation, logger, profilers, AOP, DI, etc.
+
+---
+
+## Follow the dealer
+<pre>
+           @kramp
+            krampstudio.com
+ github.com/krampstudio
+</pre>
+
+    </textarea>
+    <script src="js/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
