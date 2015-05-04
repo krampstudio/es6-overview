@@ -64,7 +64,34 @@
  - Some Harmony features have been moved to ES7 
  - Now called ES 2015 (really?)
 
+## Implementation
 
+### How to do ES6 today
+
+#### Where to look at
+
+[Kangax' ES6 Compatibility Table](http://kangax.github.io/compat-table/es6/)
+
+#### Native implementations (partial)
+
+ 1. io.js
+ 2. Firefox 39
+ 3. Spartran
+ 4. Chrome 44
+ 5. node.js --harmony
+
+#### Transpileurs
+
+ 1. Babel
+ 2. Traceur 
+ 3. TypeScript 
+ 4. JSX (React)
+
+### My stack
+
+ - [node.js](http://nodejs.org)
+ - [Babel](https://babeljs.io)
+ - [Browserify](http://browserify.org)
 
 ## Features Overview
 
@@ -83,13 +110,8 @@
  - Getter/Setter 
  - Property access on string and on object using reserved keyword
  
-[Features and compat table](http://kangax.github.io/compat-table/es5/)
+[Kangax' ES5 Compatibility Table](http://kangax.github.io/compat-table/es5/)
 
-### Sugar
-
-- enhanced object literals
-- destructuring
-- template strings
 
 ### Object Literrals
 
@@ -137,6 +159,7 @@ tatoo.hasRedInk === true;
 tatoo.isSMALL() === true;
 ```
 
+
 ### Destructuring
 
 #### Destructuring Array
@@ -173,6 +196,43 @@ var [size] = [];
 
 size === undefined;
 ```
+
+
+###  Function parameters
+
+#### Default value
+
+```javascript
+function countTattoo(tattoos = [] ) {
+	return tattoos.length;
+}
+
+countTattoo(['arms', 'neck']) === 2;
+countTattoo() === 0;
+```
+
+#### Rest parameter
+
+```javascript
+function countTattoo(...tattoos) {
+	return tattoos.length;
+}
+
+countTattoo('arms', 'neck') === 2;
+countTattoo() === 0;
+```
+
+#### Spread
+
+```javascript
+function drawTattoo(size, color, location){
+	return 'Drawing a ' + size + ', ' + color + ' tattoo on the ' + location;
+}
+
+var tattoos = ['small', 'green', 'back'];
+drawTattoo(...tattoos) === 'Drawing a small, green tattoo on the back';
+```
+
 
 ### Template Strings
 
@@ -216,49 +276,7 @@ var res = tattoo`A ${size.toLowerCase()}, ${color} ${motif} tattoo`;
 res === "A small, red flower tattoo";
 ```
 
-### Functions and scopes
-
-- function parameters
-- variable declaration
-- arrows
-- proxies
-
-###  function parameters
-
-#### Default value
-
-```javascript
-function countTattoo(tattoos = [] ) {
-	return tattoos.length;
-}
-
-countTattoo(['arms', 'neck']) === 2;
-countTattoo() === 0;
-```
-
-#### Rest parameter
-
-```javascript
-function countTattoo(...tattoos) {
-	return tattoos.length;
-}
-
-countTattoo('arms', 'neck') === 2;
-countTattoo() === 0;
-```
-
-#### Spread
-
-```javascript
-function drawTattoo(size, color, location){
-	return 'Drawing a ' + size + ', ' + color + ' tattoo on the ' + location;
-}
-
-var tattoos = ['small', 'green', 'back'];
-drawTattoo(...tattoos) === 'Drawing a small, green tattoo on the back';
-```
-
-### variable declaration
+### Variable declaration
 
 #### let
 
@@ -317,49 +335,81 @@ drawing[0] === 'Drawing a blue tattoo on the arm';
 drawing[1] === 'Drawing a blue tattoo on the leg';
 ```
 
-#### Proxies
+
+### Collections
+
+#### Sets
 
 ```javascript
-var machine  = {};
-var pMachine = new Proxy(machine, {
-	get : function(target, property){
-		console.log('Machine ' + property + ' : ' + value);
-		return target[property];
-	},
-	set : function(target, property, value){
-		console.log('Machine has a new ' + property + ' : ' + value);
-		target[property] = value;
-	}
-});
+var tattoos = new Set();
+tattoos.add('pin-up')
+	     .add('dragon')
+	     .add('pin-up');
 
-pMachine.color = 'red';
-pMachine.color;
-pMachine.speed = 10;
+tattoos.size === 2;
+tattoos.has('pin-up') === true;
 ```
 
-#### Proxy traps
+#### Maps
 
- - `getPrototypeOf (target)`
- - `setPrototypeOf (target, prototype)`
- - `isExtensible (target)`
- - `preventExtensions (target)`
- - `getOwnPropertyDescriptor (target, property)`
- - `defineProperty (target, property, descriptor)`
- - `has (target, prop)` 
- - `get (target, property, receiver)`
- - `set (target, property, value, receiver)`
- - `deleteProperty (target, property)`
- - `enumerate (target)`
- - `ownKeys (target)`
- - `apply (target, thisArg, argumentsList)`
- - `construct (target, argumentsList)`
+```javascript
+var machine = new Map();
+machine.set("speed", 10);
+machine.get("speed") === 10;
 
-### Async
+machine.set("ink", "purple");
+machine.get("ink") === "purple";
+```
 
-- promises
-- generators
+#### Weak Sets/Maps
 
-#### Promises
+```javascript
+var tattoo = { 
+	color : 'green',
+	size   : 'small'
+};
+var book = new WeakMap();
+tattoos.set(tattoo, "page 10");
+tattoos.get(tattoo) === "page 10";
+```
+
+#### for - of
+
+```javascript
+var tattoos = ['dragon', 'flower', 'pin-up', 'anchor', 'heart', 'tribal'];
+for (var tattoo of tattoos){
+	console.log(tattoos);
+}
+```
+
+#### Iterator
+
+```javascript
+var randomTattoos = {
+	[Symbol.iterator]() {
+		var tattoos = ['dragon', 'flower', 'pin-up', 'anchor', 'heart', 'tribal'];
+		var time = 0;
+		return {
+			next : function(){
+				time++;
+				return { 
+					done : time > 3, 
+					value : tattoos[Math.floor(Math.random() * tattoos.length)]
+				}
+			}
+		}    	
+	}
+}
+
+for (var tattoos of randomTattoos){
+	console.log(tattoos);
+}
+```
+
+
+
+
+### Promises
 
 ```javascript
 function startMachine(){
@@ -384,7 +434,8 @@ startMachine()
   });
 ```
 
-#### Generators
+
+### Generators
 
 #### Generators yielding
 
@@ -458,95 +509,91 @@ for (var  p of inkPoint(){
 }
 ```
 
-### Collections
+### Meta Programming
 
-- map + set + weakmap + weakset
-- iterators + for..of
-
-#### Sets
+#### Proxies
 
 ```javascript
-var tattoos = new Set();
-tattoos.add('pin-up')
-	     .add('dragon')
-	     .add('pin-up');
-
-tattoos.size === 2;
-tattoos.has('pin-up') === true;
-```
-
-#### Sets
-
-```javascript
-var tattoos = new Set();
-tattoos.add('pin-up')
-	     .add('dragon')
-	     .add('pin-up');
-
-tattoos.size === 2;
-tattoos.has('pin-up') === true;
-```
-
-#### Map
-
-```javascript
-var machine = new Map();
-machine.set("speed", 10);
-machine.get("speed") === 10;
-
-machine.set("ink", "purple");
-machine.get("ink") === "purple";
-```
-
-#### Weak Set/Map
-
-```javascript
-var tattoo = { 
-	color : 'green',
-	size   : 'small'
-};
-var book = new WeakMap();
-tattoos.set(tattoo, "page 10");
-tattoos.get(tattoo) === "page 10";
-```
-
-#### for of
-
-```javascript
-var tattoos = ['dragon', 'flower', 'pin-up', 'anchor', 'heart', 'tribal'];
-for (var tattoo of tattoos){
-	console.log(tattoos);
-}
-```
-
-#### Iterator
-
-```javascript
-var randomTattoos = {
-	[Symbol.iterator]() {
-		var tattoos = ['dragon', 'flower', 'pin-up', 'anchor', 'heart', 'tribal'];
-		var time = 0;
-		return {
-			next : function(){
-				time++;
-				return { 
-					done : time > 3, 
-					value : tattoos[Math.floor(Math.random() * tattoos.length)]
-				}
-			}
-		}    	
+var machine  = {};
+var pMachine = new Proxy(machine, {
+	get : function(target, property){
+		console.log('Machine ' + property + ' : ' + value);
+		return target[property];
+	},
+	set : function(target, property, value){
+		console.log('Machine has a new ' + property + ' : ' + value);
+		target[property] = value;
 	}
-}
+});
 
-for (var tattoos of randomTattoos){
-	console.log(tattoos);
-}
+pMachine.color = 'red';
+pMachine.color;
+pMachine.speed = 10;
 ```
+
+#### Proxy traps
+
+ - `getPrototypeOf (target)`
+ - `setPrototypeOf (target, prototype)`
+ - `isExtensible (target)`
+ - `preventExtensions (target)`
+ - `getOwnPropertyDescriptor (target, property)`
+ - `defineProperty (target, property, descriptor)`
+ - `has (target, prop)` 
+ - `get (target, property, [receiver])`
+ - `set (target, property, value, [receiver])`
+ - `deleteProperty (target, property)`
+ - `enumerate (target)`
+ - `ownKeys (target)`
+ - `apply (target, receiver, args)`
+ - `construct (target, args)`
+
+#### Reflect 
+
+```javascript
+var machine  = {};
+Reflect.set(machine, 'color', 'red');
+Reflect.has(machine, 'color') === true;
+Reflect.get(machine, 'color') === 'red';
+```
+
+#### Reflect traps
+
+ - `Reflect.get (target, name, [receiver])`
+ - `Reflect.set (target, name, value, [receiver])`
+ - ` Reflect.has (target, name)`
+ - ` Reflect.apply (target, receiver, args)`
+ - `Reflect.construct (target, args)`
+ - `Reflect.getOwnPropertyDescriptor (target, name)`
+ - ` Reflect.defineProperty (target, name, desc)`
+ - ` Reflect.getPrototypeOf (target)`
+ - `Reflect.setPrototypeOf (target, newProto)`
+ - `Reflect.deleteProperty (target, name)`
+ - `Reflect.enumerate (target)`
+ - `Reflect.preventExtensions (target)`
+ - `Reflect.isExtensible (target)`
+ - `Reflect.ownKeys (target)`
+
+#### Symbol
+
+```javascript
+var permanent = Symbol('permanent');
+var tattoo = {
+	[permanent] : true,
+	color : 'red'
+};
+
+JSON.stringify(tattoo) === '{"color":"red"}';
+```
+
+#### Well known Symbols
+
+ - `Symbol.iterator`
+ - `Symbol.toStringTag`
+ - `Symbol.toPrimitive`
+ - [exhautive lists of Symbols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol#Well-known_symbols)
 
 ### Class
-
-- classes
-- subclassable built-ins
 
 ### Classes
 
@@ -587,29 +634,153 @@ class PinupTattoo extends Tattoo {
 PinupTattoo.representHuman === true; 
 ```
 
-### Types and core API
+### API
 
-- symbols
-- math + number + string + array + object APIs
-- binary and octal literals
-- unicode
+#### Number
 
-### System
+```javascript
+Number.EPSILON;
+Number.isInteger(Infinity)  === false;
+Number.isNaN("NaN") === false;
+```
 
-- modules
-- module loaders
-- reflect api
-- tail calls
+#### Math
 
-## Implementation
+```javascript
+Math.acosh(3) === 1.762747174039086;
+Math.hypot(3, 4) === 5;
+Math.imul(Math.pow(2, 32) - 1, Math.pow(2, 32) - 2)  === 2;
+```
+
+#### Strings
+
+```javascript
+"tattoo".includes("tat") === true;
+"up-down-".repeat(2) === "up-down-up-down-";
+```
+
+#### Binary and Octal
+
+```javascript
+0b111110111 === 503;
+0o767 === 503;
+```
+
+#### Object
+
+```javascript
+var tattoo = {
+	motif : 'pin-up'
+};
+
+Object.assign(tattoo, {
+	color: 'red'
+});
+
+tattoo.color === 'red';
+tattoo.motif === 'pin-up';
+```
+
+### Array
+
+```javascript
+Array.from(document.querySelectorAll('*')) // Returns a real Array
+Array.of(1, 2, 3) // Similar to new Array(...), but without special one-arg behavior
+[0, 0, 0].fill(7, 1) // [0,7,7]
+[1, 2, 3].find(x => x == 3) // 3
+[1, 2, 3].findIndex(x => x == 2) // 1
+[1, 2, 3, 4, 5].copyWithin(3, 0) // [1, 2, 3, 1, 2]
+["a", "b", "c"].entries() // iterator [0, "a"], [1,"b"], [2,"c"]
+["a", "b", "c"].keys() // iterator 0, 1, 2
+["a", "b", "c"].values() // iterator "a", "b", "c"
+```
+
+### Modules
+
+#### Import and Export
+
+```javascript
+// lib/machine.js
+function start(){
+	return 'starting';
+}
+function stop(){
+	return 'stoping';
+}
+export start;
+export stop;
+```
+
+```javascript
+import *  as machine from "lib/machine";
+machine.start() === 'starting';
+machine.stop() === 'stoping';
+```
+
+```javascript
+import {start, stop} from "lib/machine";
+start() === 'starting';
+stop() === 'stoping';
+```
+
+#### Default
+
+```javascript
+// lib/machine.js
+var machine = {
+ 	start(){
+		return 'starting';
+	},
+	stop(){
+		return 'stoping';
+	}
+};
+export default machine;
+```
+
+```javascript
+import machine from "lib/machine";
+machine.start() === 'starting';
+machine.stop() === 'stoping';
+```
+
+#### Module loaders 
+
+```javascript
+// Dynamic loading – ‘System’ is default loader
+System.import('lib/math').then(function(m) {
+  alert("2π = " + m.sum(m.pi, m.pi));
+});
+
+// Create execution sandboxes – new Loaders
+var loader = new Loader({
+  global: fixup(window) // replace ‘console.log’
+});
+loader.eval("console.log('hello world!');");
+
+// Directly manipulate module cache
+System.get('jquery');
+System.set('jquery', Module({$: $})); // WARNING: not yet finalized
+```
+
+### Tail calls
+
+```javascript
+function factorial(n, acc = 1) {
+    'use strict';
+    if (n <= 1) return acc;
+    return factorial(n - 1, n * acc);
+}
+
+factorial(100000);
+```
 
 ## New Patterns
 
- - spread instead of [].slice
+ - spread to replace `arguments`, spread instead of [].slice
  - default parameter (see isomorphic es6)
  - for [k,v] of Map
  - for k of Object.keys(array)
- - arrow fn in forEach, map/reduce
+ - => in forEach, map/reduce
  - generators  ‘await’-like async programming, see also ES7 await proposal.
- - spread to replace arguments (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator)  
- - proxies meta programming : transversal layer (validation, logger, profilers), AOP, DI, etc.
+ - proxies meta programming : validation, logger, profilers, AOP, DI, etc.
