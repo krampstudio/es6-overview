@@ -25,21 +25,21 @@ class: center, middle
 
 ### What's what
 
-- **ECMAScript** : "Java" is a trademark of Sun so "JavaScript" is also (why microsoft named it JScript, etc.). The name of the language and the standard. Hosted by ECMA international
-- **ECMA-262** : the standard
-- **ES 5** : 5th edition of ECMA-262
-- **TC39** : The Technical Committee that maintain the standard
-- **JavaScript** : An implementation of the standard
+- **ECMAScript** : "Java" is a trademark of Sun so "JavaScript" is also (why microsoft named it JScript, etc.). The name of the language and the standard. Hosted by ECMA international.
+- **ECMA-262** : the standard.
+- **ES 5** : 5th edition of ECAMA-262.
+- **TC39** : The Technical Committee that maintain the standard.
+- **JavaScript** : An implementation of the standard.
 
 ---
 
 ###  How all began
 
- - 1995 : Eich developped Mocha/LiveScript
- - 1996 : Netscape (with Sun) include JavaScript in the browser (in order to complete Java)
- - 1996 : Netscape submit JavaScript to ECMA for standardization
- - 1997 : ECMA-262 1st Edition
- - 1998 : ECMA-262 2nd Edition
+ - 1995 : Eich developped Mocha/LiveScript.
+ - 1996 : Netscape (with Sun) include JavaScript in the browser (in order to complete Java).
+ - 1996 : Netscape submit JavaScript to ECMA for standardization.
+ - 1997 : ECMA-262 1st Edition.
+ - 1998 : ECMA-262 2nd Edition.
  - 1999 : **ECMA-262 3rd Edition**  This is the version we all know.
 
 ---
@@ -49,28 +49,28 @@ class: center, middle
 **1999 - 2008**
 
  - JavaScript is a toy.
- - TC39 starts an amibitius new version : static typing, classes, generators, annotations, generics, etc.
+ - TC39 starts an amibitious new version : static typing, classes, generators, annotations, generics, etc.
  - But they even never been agreed what features to include.
 
 ---
 
 ### The resurection
 
- - ~2005 web2.0 is rising
- - 2008 : v8
- - 2008 : TC39 finally abandonned ES4. Agreement on starting 2 projects :   ES5 as a lighter version and Harmony for the future of the language.
- - 2009 : ECMAScript 5th Edition
- - 2009 : 1st version of node.js
- - 2011 : **ECMAScript 5.1th Edition** (The current implementation)
+ - ~2005 web2.0 is rising.
+ - 2008 : v8.
+ - 2008 : TC39 finally abandonned ES4. Agreement on starting 2 projects : ES5 as a lighter version and Harmony for the future of the language.
+ - 2009 : ECMAScript 5th Edition.
+ - 2009 : 1st version of node.js.
+ - 2011 : **ECMAScript 5.1th Edition** (The current implementation).
 
 ---
 
 ### And now
 
- - ES6 is feature complete
- - planned for end of May 2015
- - Some Harmony features have been moved to ES7
- - Now called ES 2015 (really?)
+ - ES6 is feature complete.
+ - planned for end of May 2015.
+ - Some Harmony features have been moved to ES7.
+ - Now called ES 2015 (really?).
 
 ---
 
@@ -177,7 +177,8 @@ var tatoo = {
     color
 };
 
-tatoo.color === 'red';```
+tatoo.color === 'red';
+```
 
 ---
 
@@ -502,8 +503,8 @@ var randomTattoos = {
 	}
 }
 
-for (var tattoos of randomTattoos){
-	console.log(tattoos);
+for (var tattoo of randomTattoos){
+	console.log(tattoo);
 }
 ```
 ---
@@ -688,12 +689,12 @@ Reflect.get(machine, 'color') === 'red';
 
  - `Reflect.get (target, name, [receiver])`
  - `Reflect.set (target, name, value, [receiver])`
- - ` Reflect.has (target, name)`
- - ` Reflect.apply (target, receiver, args)`
+ - `Reflect.has (target, name)`
+ - `Reflect.apply (target, receiver, args)`
  - `Reflect.construct (target, args)`
  - `Reflect.getOwnPropertyDescriptor (target, name)`
- - ` Reflect.defineProperty (target, name, desc)`
- - ` Reflect.getPrototypeOf (target)`
+ - `Reflect.defineProperty (target, name, desc)`
+ - `Reflect.getPrototypeOf (target)`
  - `Reflect.setPrototypeOf (target, newProto)`
  - `Reflect.deleteProperty (target, name)`
  - `Reflect.enumerate (target)`
